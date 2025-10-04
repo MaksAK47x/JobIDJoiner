@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Joining Roblox...</title>
+	<script>
+		window.addEventListener('DOMContentLoaded', () => {
+			const params = new URLSearchParams(window.location.search);
+			const placeId = params.get('placeId');
+			const gameInstanceId = params.get('gameInstanceId');
+
+			const status = document.getElementById('status');
+
+			if (placeId && gameInstanceId) {
+				const robloxUrl = `roblox://placeID=${encodeURIComponent(placeId)}&gameInstanceId=${encodeURIComponent(gameInstanceId)}`;
+				status.textContent = 'Launching Roblox...';
+				window.location.href = robloxUrl;
+
+				const fallback = document.getElementById('fallback');
+				fallback.href = robloxUrl;
+				fallback.style.display = 'inline';
+			} else {
+				status.textContent = "Error: Missing Place ID or Game Instance ID.";
+			}
+		});
+	</script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			padding-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<h1 id="status">Preparing to join game...</h1>
+	<p>If you're not redirected, <a id="fallback" href="#" style="display:none;">click here</a>.</p>
+</body>
+</html>
