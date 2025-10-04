@@ -1,39 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Joining Roblox...</title>
-	<script>
-		window.addEventListener('DOMContentLoaded', () => {
-			const params = new URLSearchParams(window.location.search);
-			const placeId = params.get('placeId');
-			const gameInstanceId = params.get('gameInstanceId');
+  <meta charset="UTF-8">
+  <title>Join Roblox Game</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const placeId = params.get('placeId');
+      const gameInstanceId = params.get('gameInstanceId');
 
-			const status = document.getElementById('status');
+      const status = document.getElementById('status');
+      const joinButton = document.getElementById('joinButton');
+      const fallback = document.getElementById('fallback');
 
-			if (placeId && gameInstanceId) {
-				const robloxUrl = `roblox://placeID=${encodeURIComponent(placeId)}&gameInstanceId=${encodeURIComponent(gameInstanceId)}`;
-				status.textContent = 'Launching Roblox...';
-				window.location.href = robloxUrl;
-
-				const fallback = document.getElementById('fallback');
-				fallback.href = robloxUrl;
-				fallback.style.display = 'inline';
-			} else {
-				status.textContent = "Error: Missing Place ID or Game Instance ID.";
-			}
-		});
-	</script>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			text-align: center;
-			padding-top: 50px;
-		}
-	</style>
+      if (placeId && gameInstanceId) {
+        const robloxUrl = `roblox://placeID=${encodeURIComponent(placeId)}&gameInstanceId=${encodeURIComponent(gameInstanceId)}`;
+        status.textContent = 'Ready to join the game.';
+        joinButton.href = robloxUrl;
+        joinButton.style.display = 'inline-block';
+        fallback.style.display = 'block';
+      } else {
+        status.textContent = "Error: Missing Place ID or Game Instance ID.";
+        fallback.style.display = 'none';
+      }
+    });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #joinButton {
+      display: none;
+      padding: 10px 20px;
+      background-color: #00b06b;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 18px;
+    }
+    #fallback {
+      display: none;
+      margin-top: 15px;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
-	<h1 id="status">Preparing to join game...</h1>
-	<p>If you're not redirected, <a id="fallback" href="#" style="display:none;">click here</a>.</p>
+  <h1 id="status">Preparing to join...</h1>
+  <a id="joinButton" href="#">Click here to launch Roblox</a>
+  <p id="fallback">If you're not redirected, click the button above.</p>
 </body>
 </html>
